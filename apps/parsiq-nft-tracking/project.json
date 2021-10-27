@@ -1,0 +1,73 @@
+{
+  "root": "apps/parsiq-nft-tracking",
+  "sourceRoot": "apps/parsiq-nft-tracking/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/web:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/apps/parsiq-nft-tracking",
+        "index": "apps/parsiq-nft-tracking/src/index.html",
+        "baseHref": "/",
+        "main": "apps/parsiq-nft-tracking/src/main.tsx",
+        "polyfills": "apps/parsiq-nft-tracking/src/polyfills.ts",
+        "tsConfig": "apps/parsiq-nft-tracking/tsconfig.app.json",
+        "assets": [
+          "apps/parsiq-nft-tracking/src/favicon.ico",
+          "apps/parsiq-nft-tracking/src/assets"
+        ],
+        "styles": [],
+        "scripts": [],
+        "webpackConfig": "@nrwl/react/plugins/webpack"
+      },
+      "configurations": {
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/parsiq-nft-tracking/src/environments/environment.ts",
+              "with": "apps/parsiq-nft-tracking/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/web:dev-server",
+      "options": {
+        "buildTarget": "parsiq-nft-tracking:build",
+        "hmr": true,
+        "proxyConfig": "apps/parsiq-nft-tracking/proxy.conf.json"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "parsiq-nft-tracking:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/parsiq-nft-tracking/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/parsiq-nft-tracking"],
+      "options": {
+        "jestConfig": "apps/parsiq-nft-tracking/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

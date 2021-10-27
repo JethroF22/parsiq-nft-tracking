@@ -1,0 +1,29 @@
+{
+  "root": "apps/parsiq-nft-tracking-e2e",
+  "sourceRoot": "apps/parsiq-nft-tracking-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/parsiq-nft-tracking-e2e/cypress.json",
+        "devServerTarget": "parsiq-nft-tracking:serve",
+        "tsConfig": "apps/parsiq-nft-tracking-e2e/tsconfig.json"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "parsiq-nft-tracking:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/parsiq-nft-tracking-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["parsiq-nft-tracking"]
+}

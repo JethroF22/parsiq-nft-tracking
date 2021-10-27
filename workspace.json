@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "projects": {
+    "api": "apps/api",
+    "api-interfaces": "libs/api-interfaces",
+    "parsiq-nft-tracking": "apps/parsiq-nft-tracking",
+    "parsiq-nft-tracking-e2e": "apps/parsiq-nft-tracking-e2e"
+  }
+}
