@@ -3,12 +3,10 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import Button from './styled/Button';
-import { loginFormValidationSchema } from '../../lib';
-
-interface LoginFormState {
-  email: string;
-  password: string;
-}
+import {
+  loginFormValidationSchema,
+  LoginFormState,
+} from '../../lib/forms/authentication';
 
 export default function LoginForm() {
   const formOptions = { resolver: yupResolver(loginFormValidationSchema) };
