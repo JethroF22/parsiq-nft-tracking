@@ -2,13 +2,11 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import Button from './styled/Button';
-import { signUpFormValidationSchema } from '../../lib';
-
-interface SignUpFormState {
-  email: string;
-  password: string;
-  confirmPassword: string;
-}
+import {
+  signUpFormValidationSchema,
+  SignUpFormState,
+} from '../../lib/forms/authentication';
+import { signUpHandler } from '../../services';
 
 export default function SignUpForm() {
   const formOptions = {
@@ -20,8 +18,13 @@ export default function SignUpForm() {
     handleSubmit,
   } = useForm(formOptions);
 
-  const onSubmit = (formState: SignUpFormState) => {
-    console.log('formState', formState);
+  const onSubmit = async (formState: SignUpFormState) => {
+    try {
+      const user = await signUpHandler(formState);
+      console.log('user', user);
+    } catch (error) {
+      console.log('error', error);
+    }
   };
 
   return (
