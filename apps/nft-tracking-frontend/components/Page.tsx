@@ -61,6 +61,41 @@ const GlobalStyle = createGlobalStyle`
   input:disabled {
     color: #8b8b8b;
   }
+
+  .modal-container {
+    background: rgba(0, 0, 0, 0.1);
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .modal-close {
+    position: absolute;
+    right: 15px;
+    top: 0px;
+    cursor: pointer;
+    border: none;
+    font-size: 25px;
+    font-weight: bold;
+  }
+
+  .modal-body {
+    position: relative;
+    width: 450px;
+    height: 350px;
+    box-shadow: 0 5px 10px 2px rgba(195,192,192,.5);
+    padding: 20px;
+    text-align: center;
+    background: #fff;
+  }
 `;
 
 const Page = (props): JSX.Element => {

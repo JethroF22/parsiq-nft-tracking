@@ -31,6 +31,7 @@ export default class CustomDocument extends Document<{
         </Head>
         <body>
           <Main />
+          <div id="modal"></div>
           <NextScript />
         </body>
       </Html>
