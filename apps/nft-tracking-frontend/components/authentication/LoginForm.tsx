@@ -1,10 +1,22 @@
-import { ChangeEvent } from 'react';
+import { useForm } from 'react-hook-form';
 
 import Button from './styled/Button';
 
+interface LoginFormState {
+  email: string;
+  password: string;
+}
+
 export default function LoginForm() {
-  const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) =>
-    console.log(event);
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm();
+
+  const logIn = (formState: LoginFormState) => {
+    console.log('formState', formState);
+  };
 
   return (
     <>
@@ -14,19 +26,21 @@ export default function LoginForm() {
             type="text"
             placeholder="Email"
             name="email"
-            onChange={onChangeHandler}
+            {...register('email', { required: true })}
           />
+          {errors.email && <span>This field is required</span>}
         </div>
         <div className="input-group">
           <input
             type="password"
             placeholder="Password"
             name="password"
-            onChange={onChangeHandler}
+            {...register('password', { required: true })}
           />
+          {errors.password && <span>This field is required</span>}
         </div>
         <div className="input-group">
-          <Button onClick={() => console.log('Logging in')} className="button">
+          <Button onClick={handleSubmit(logIn)} className="button">
             Log In
           </Button>
         </div>
