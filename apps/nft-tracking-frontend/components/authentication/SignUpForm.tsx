@@ -1,24 +1,26 @@
-import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import Button from './styled/Button';
-import { loginFormValidationSchema } from '../../lib';
+import { signUpFormValidationSchema } from '../../lib';
 
-interface LoginFormState {
+interface SignUpFormState {
   email: string;
   password: string;
+  confirmPassword: string;
 }
 
-export default function LoginForm() {
-  const formOptions = { resolver: yupResolver(loginFormValidationSchema) };
+export default function SignUpForm() {
+  const formOptions = {
+    resolver: yupResolver(signUpFormValidationSchema),
+  };
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm(formOptions);
 
-  const onSubmit = (formState: LoginFormState) => {
+  const onSubmit = (formState: SignUpFormState) => {
     console.log('formState', formState);
   };
 
@@ -44,15 +46,18 @@ export default function LoginForm() {
           />
         </div>
         <div className="input-group">
-          <Button onClick={handleSubmit(onSubmit)} className="button">
-            Log In
-          </Button>
+          <input
+            type="password"
+            placeholder="Confirm Password"
+            name="confirmPassword"
+            {...register('confirmPassword')}
+            className={errors.confirmPassword ? 'input-error' : ''}
+          />
         </div>
-        <div className="input-group input-group-row">
-          Don&apos;t have an account?{' '}
-          <span className="link">
-            <Link href="/sign_up">Sign up here.</Link>
-          </span>
+        <div className="input-group">
+          <Button onClick={handleSubmit(onSubmit)} className="button">
+            Sign Up
+          </Button>
         </div>
       </div>
     </>
