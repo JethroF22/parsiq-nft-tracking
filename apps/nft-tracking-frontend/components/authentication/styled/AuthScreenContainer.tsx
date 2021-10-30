@@ -46,11 +46,13 @@ const AuthScreenContainer = styled.div`
 
       .link {
         margin-left: 10px;
-        color: #629ecb;
-        text-decoration: underline;
-        cursor: pointer;
-        &:hover {
-          color: #95d1fe;
+        a {
+          color: #629ecb;
+          cursor: pointer;
+          &:hover {
+            color: #95d1fe;
+            text-decoration: underline;
+          }
         }
       }
 
