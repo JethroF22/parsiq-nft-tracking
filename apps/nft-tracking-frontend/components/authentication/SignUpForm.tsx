@@ -10,6 +10,7 @@ import {
   SignUpFormState,
 } from '../../lib/forms/authentication';
 import { signUpHandler } from '../../services';
+import EmailVerificationForm from './EmailVerificationForm';
 
 export default function SignUpForm() {
   const formOptions = {
@@ -38,7 +39,7 @@ export default function SignUpForm() {
         <Modal>
           <div className="modal-container">
             <div className="modal-body">
-              <div>Enter Verification Code</div>
+              <EmailVerificationForm />
               <span
                 className="modal-close"
                 onClick={() => setModalDisplayState(false)}
