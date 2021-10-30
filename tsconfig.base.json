@@ -17,6 +17,9 @@
     "paths": {
       "@parsiq-nft-tracking/api-interfaces": [
         "libs/api-interfaces/src/index.ts"
+      ],
+      "@parsiq-nft-tracking/validation-library": [
+        "libs/validation-library/src/index.ts"
       ]
     },
     "esModuleInterop": true

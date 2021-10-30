@@ -54,10 +54,9 @@ const AuthScreenContainer = styled.div`
         }
       }
 
-      .error-message {
-        font-size: 1.5rem;
-        color: red;
-        text-align: center;
+      .input-error {
+        border-color: red;
+        border-width: 2px;
       }
     }
 

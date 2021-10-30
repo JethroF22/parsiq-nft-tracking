@@ -9,6 +9,7 @@
   },
   "private": true,
   "dependencies": {
+    "@hookform/resolvers": "^2.8.2",
     "@nrwl/next": "^13.1.2",
     "core-js": "^3.6.5",
     "cors": "^2.8.5",
@@ -21,7 +22,8 @@
     "react-is": "17.0.2",
     "regenerator-runtime": "0.13.7",
     "styled-components": "5.3.3",
-    "tslib": "^2.0.0"
+    "tslib": "^2.0.0",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@nrwl/cli": "13.1.2",
@@ -30,7 +32,7 @@
     "@nrwl/express": "13.1.2",
     "@nrwl/jest": "13.1.2",
     "@nrwl/linter": "13.1.2",
-    "@nrwl/node": "13.1.2",
+    "@nrwl/node": "^13.1.2",
     "@nrwl/react": "13.1.2",
     "@nrwl/tao": "13.1.2",
     "@nrwl/web": "13.1.2",

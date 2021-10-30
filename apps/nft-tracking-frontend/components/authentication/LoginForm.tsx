@@ -1,6 +1,8 @@
 import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 import Button from './styled/Button';
+import { loginFormValidationSchema } from '../../lib';
 
 interface LoginFormState {
   email: string;
@@ -8,11 +10,12 @@ interface LoginFormState {
 }
 
 export default function LoginForm() {
+  const formOptions = { resolver: yupResolver(loginFormValidationSchema) };
   const {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm();
+  } = useForm(formOptions);
 
   const logIn = (formState: LoginFormState) => {
     console.log('formState', formState);
@@ -26,18 +29,18 @@ export default function LoginForm() {
             type="text"
             placeholder="Email"
             name="email"
-            {...register('email', { required: true })}
+            {...register('email')}
+            className={errors.email ? 'input-error' : ''}
           />
-          {errors.email && <span>This field is required</span>}
         </div>
         <div className="input-group">
           <input
             type="password"
             placeholder="Password"
             name="password"
-            {...register('password', { required: true })}
+            {...register('password')}
+            className={errors.password ? 'input-error' : ''}
           />
-          {errors.password && <span>This field is required</span>}
         </div>
         <div className="input-group">
           <Button onClick={handleSubmit(logIn)} className="button">
