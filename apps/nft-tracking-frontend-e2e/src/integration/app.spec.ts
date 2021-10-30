@@ -1,6 +1,6 @@
 import { getGreeting } from '../support/app.po';
 
-describe('parsiq-nft-tracking', () => {
+describe('nft-tracking-frontend', () => {
   beforeEach(() => cy.visit('/'));
 
   it('should display welcome message', () => {
@@ -8,6 +8,6 @@ describe('parsiq-nft-tracking', () => {
     cy.login('my-email@something.com', 'myPassword');
 
     // Function helper example, see `../support/app.po.ts` file
-    getGreeting().contains('Welcome to parsiq-nft-tracking!');
+    getGreeting().contains('Welcome to nft-tracking-frontend!');
   });
 });

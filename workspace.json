@@ -3,7 +3,7 @@
   "projects": {
     "api": "apps/api",
     "api-interfaces": "libs/api-interfaces",
-    "parsiq-nft-tracking": "apps/parsiq-nft-tracking",
-    "parsiq-nft-tracking-e2e": "apps/parsiq-nft-tracking-e2e"
+    "nft-tracking-frontend": "apps/nft-tracking-frontend",
+    "nft-tracking-frontend-e2e": "apps/nft-tracking-frontend-e2e"
   }
 }

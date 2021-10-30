@@ -1,10 +1,10 @@
 module.exports = {
-  displayName: 'parsiq-nft-tracking',
+  displayName: 'nft-tracking-frontend',
   preset: '../../jest.preset.js',
   transform: {
     '^(?!.*\\.(js|jsx|ts|tsx|css|json)$)': '@nrwl/react/plugins/jest',
-    '^.+\\.[tj]sx?$': 'babel-jest',
+    '^.+\\.[tj]sx?$': ['babel-jest', { presets: ['@nrwl/next/babel'] }],
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../coverage/apps/parsiq-nft-tracking',
+  coverageDirectory: '../../coverage/apps/nft-tracking-frontend',
 };
