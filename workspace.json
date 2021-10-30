@@ -1,9 +1,10 @@
 {
-  "version": 2,
-  "projects": {
-    "api": "apps/api",
-    "api-interfaces": "libs/api-interfaces",
-    "nft-tracking-frontend": "apps/nft-tracking-frontend",
-    "nft-tracking-frontend-e2e": "apps/nft-tracking-frontend-e2e"
-  }
+    "version": 2,
+    "projects": {
+        "api": "apps/api",
+        "api-interfaces": "libs/api-interfaces",
+        "infrastructure": "apps/infrastructure",
+        "nft-tracking-frontend": "apps/nft-tracking-frontend",
+        "nft-tracking-frontend-e2e": "apps/nft-tracking-frontend-e2e"
+    }
 }
