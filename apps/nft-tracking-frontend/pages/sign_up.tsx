@@ -1,7 +1,7 @@
 import SignUpScreen from '../components/authentication/SignUpScreen';
 
-export function registration() {
+export function sign_up() {
   return <SignUpScreen />;
 }
 
-export default SignUpScreen;
+export default sign_up;

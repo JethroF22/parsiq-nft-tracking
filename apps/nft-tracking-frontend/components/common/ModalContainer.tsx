@@ -1,22 +1,22 @@
 import styled from 'styled-components';
 
 export default styled.div`
-  margin: 20px;
+  margin: 0 20px;
   height: 90%;
   width: 90%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
 
   .title {
     font-size: 20px;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+    margin-bottom: 3rem;
   }
 
   .input-container {
     margin-top: 15px;
+    margin-bottom: 3rem;
     width: 100%;
     display: flex;
     flex-direction: column;
