@@ -1,16 +1,17 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-
-import Button from './styled/Button';
-import Modal from '../../hocs/Modal';
+import { useRouter } from 'next/router';
 
 import {
   signUpFormValidationSchema,
   SignUpFormState,
 } from '../../lib/forms/authentication';
 import { signUpHandler } from '../../services';
-import EmailVerificationForm from './EmailVerificationForm';
+import { Context, ActionTypes } from '../../context';
+
+import Button from './styled/Button';
+import LoadingIcon from '../common/LoadingIcon';
 
 export default function SignUpForm() {
   const formOptions = {
@@ -21,35 +22,31 @@ export default function SignUpForm() {
     formState: { errors },
     handleSubmit,
   } = useForm(formOptions);
-  const [displayModal, setModalDisplayState] = useState(false);
+  const { dispatch } = useContext(Context);
+  const router = useRouter();
+  const [authActionDispatched, setAuthActionState] = useState(false);
 
   const onSubmit = async (formState: SignUpFormState) => {
     try {
+      setAuthActionState(true);
       const user = await signUpHandler(formState);
       console.log('user', user);
-      setModalDisplayState(true);
+      dispatch({
+        type: ActionTypes.UPDATE_STATE,
+        key: 'auth',
+        data: {
+          user,
+        },
+      });
+      router.push('/email_verification');
     } catch (error) {
       console.log('error', error);
+      setAuthActionState(false);
     }
   };
 
   return (
     <>
-      {displayModal && (
-        <Modal>
-          <div className="modal-container">
-            <div className="modal-body">
-              <EmailVerificationForm />
-              <span
-                className="modal-close"
-                onClick={() => setModalDisplayState(false)}
-              >
-                &times;
-              </span>
-            </div>
-          </div>
-        </Modal>
-      )}
       <div className="body">
         <div className="input-group">
           <input
@@ -94,9 +91,13 @@ export default function SignUpForm() {
           )}
         </div>
         <div className="input-group">
-          <Button onClick={handleSubmit(onSubmit)} className="button">
-            Sign Up
-          </Button>
+          {authActionDispatched ? (
+            <LoadingIcon size="3x" />
+          ) : (
+            <Button onClick={handleSubmit(onSubmit)} className="button">
+              Sign Up
+            </Button>
+          )}
         </div>
       </div>
     </>

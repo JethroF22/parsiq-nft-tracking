@@ -32,7 +32,7 @@ export const signUpFormValidationSchema = Yup.object().shape({
 });
 
 export const emailVerificationFormValidationSchema = Yup.object().shape({
-  email: Yup.string().required(
+  code: Yup.string().required(
     'Please enter the validation code that was \nsent to your email address.'
   ),
 });
