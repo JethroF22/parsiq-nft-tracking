@@ -37,7 +37,7 @@ export default function LoginForm() {
           user,
         },
       });
-      router.push('/home');
+      router.push('/following/list');
     } catch (error) {
       setAuthActionState(false);
       console.log('error', error);

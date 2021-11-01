@@ -13,6 +13,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@fortawesome/react-fontawesome": "^0.1.16",
     "@hookform/resolvers": "^2.8.2",
+    "@mui/material": "^5.0.6",
     "@nrwl/next": "^13.1.2",
     "aws-amplify": "^4.3.4",
     "aws-lambda": "^1.0.6",
