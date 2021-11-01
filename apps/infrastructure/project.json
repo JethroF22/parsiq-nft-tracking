@@ -11,7 +11,8 @@
             "options": {
                 "outputPath": "dist/apps/infrastructure",
                 "main": "apps/infrastructure/src/main.ts",
-                "tsConfig": "apps/infrastructure/tsconfig.app.json"
+                "tsConfig": "apps/infrastructure/tsconfig.app.json",
+                "generatePackageJson": true
             },
             "configurations": {
                 "production": {
