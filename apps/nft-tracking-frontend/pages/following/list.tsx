@@ -1,5 +1,6 @@
+import AddressListScreen from '../../components/following/AddressListScreen';
 import React from 'react';
 
 export default function address_list() {
-  return <div>Address List Page</div>;
+  return <AddressListScreen />;
 }
