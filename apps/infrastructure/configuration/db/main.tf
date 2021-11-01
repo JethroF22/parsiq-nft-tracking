@@ -1,3 +1,17 @@
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 3.27"
+    }
+  }
+  required_version = ">= 0.14.9"
+}
+
+provider "aws" {
+  profile = "me"
+  region  = "eu-west-1"
+}
 
 resource "aws_dynamodb_table" "api_dynamodb_table" {
   name         = "nft-tracking-table-${var.deployment_environment}"

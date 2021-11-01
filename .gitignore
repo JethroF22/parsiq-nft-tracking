@@ -75,3 +75,6 @@ override.tf.json
 .terraformrc
 terraform.rc
 
+# Ignore lambda bundles
+**/bundles/*.zip
+
