@@ -3,6 +3,7 @@ import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid';
 import { makeStyles } from '@mui/styles';
 
 import HomeScreen from '../common/HomeScreen';
+import AddressListHeader from './AddressListHeader';
 
 const useStyles = makeStyles({
   root: {
@@ -89,6 +90,7 @@ export default function AddressListScreen() {
   ];
   return (
     <HomeScreen>
+      <AddressListHeader />
       <div style={{ height: '80vh', width: 800, margin: '3rem auto' }}>
         <DataGrid
           rows={rows}
