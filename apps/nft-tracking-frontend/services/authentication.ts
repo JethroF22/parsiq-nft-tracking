@@ -1,5 +1,5 @@
 import { Auth } from 'aws-amplify';
-import { SignUpFormState } from '../lib/forms/authentication';
+import { SignUpFormState, LoginFormState } from '../lib/forms/authentication';
 
 export const signUpHandler = async (
   formState: SignUpFormState
@@ -13,7 +13,10 @@ export const signUpHandler = async (
   return user;
 };
 
-export const emailVerificationHandler = async (code: string, email: string) => {
+export const emailVerificationHandler = async (
+  code: string,
+  email: string
+): Promise<string> => {
   try {
     await Auth.confirmSignUp(email, code);
     return '';
@@ -27,4 +30,9 @@ export const emailVerificationHandler = async (code: string, email: string) => {
       return 'An unexpected server error occurred. Please try again later';
     }
   }
+};
+
+export const logInHandler = async (formState: LoginFormState): Promise<any> => {
+  const { email, password } = formState;
+  return Auth.signIn(email, password);
 };
