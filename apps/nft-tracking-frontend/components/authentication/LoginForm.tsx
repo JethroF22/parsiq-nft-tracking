@@ -1,12 +1,18 @@
+import { useState, useContext } from 'react';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useRouter } from 'next/router';
 
-import Button from './styled/Button';
+import { logInHandler } from '../../services';
+import { Context, ActionTypes } from '../../context';
 import {
   loginFormValidationSchema,
   LoginFormState,
 } from '../../lib/forms/authentication';
+
+import Button from './styled/Button';
+import LoadingIcon from '../common/LoadingIcon';
 
 export default function LoginForm() {
   const formOptions = { resolver: yupResolver(loginFormValidationSchema) };
@@ -15,9 +21,27 @@ export default function LoginForm() {
     formState: { errors },
     handleSubmit,
   } = useForm(formOptions);
+  const { dispatch } = useContext(Context);
+  const router = useRouter();
+  const [authActionDispatched, setAuthActionState] = useState(false);
 
-  const onSubmit = (formState: LoginFormState) => {
-    console.log('formState', formState);
+  const onSubmit = async (formState: LoginFormState) => {
+    try {
+      setAuthActionState(true);
+      const user = await logInHandler(formState);
+      console.log('user', user);
+      dispatch({
+        type: ActionTypes.UPDATE_STATE,
+        key: 'auth',
+        data: {
+          user,
+        },
+      });
+      router.push('/home');
+    } catch (error) {
+      setAuthActionState(false);
+      console.log('error', error);
+    }
   };
 
   return (
@@ -42,9 +66,13 @@ export default function LoginForm() {
           />
         </div>
         <div className="input-group">
-          <Button onClick={handleSubmit(onSubmit)} className="button">
-            Log In
-          </Button>
+          {authActionDispatched ? (
+            <LoadingIcon size="3x" />
+          ) : (
+            <Button onClick={handleSubmit(onSubmit)} className="button">
+              Log In
+            </Button>
+          )}
         </div>
         <div className="input-group input-group-row">
           Don&apos;t have an account?{' '}
