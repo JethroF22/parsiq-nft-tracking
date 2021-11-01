@@ -44,17 +44,20 @@ resource "aws_iam_role_policy_attachment" "policy_attachment" {
   policy_arn = aws_iam_policy.lambda_logging_policy.arn
 }
 
-# data "archive_file" "default" {
-#   type        = "zip"
-#   source_dir  = "${path.module}/files/"
-#   output_path = "${path.module}/myzip/python.zip"
-# }
+resource "aws_lambda_function" "update_user_data_lambda" {
+  filename      = "${path.module}/bundles/infrastructure.zip"
+  function_name = "nft-tracking-update-user-data-lambda-${var.deployment_environment}"
+  role          = aws_iam_role.lambda_role.arn
+  handler       = "main.updateParsiqUserDataHandler"
+  runtime       = "nodejs14.x"
+  depends_on    = [aws_iam_role_policy_attachment.policy_attachment]
+}
 
-# resource "aws_lambda_function" "lambdafunc" {
-#   filename      = "${path.module}/myzip/python.zip"
-#   function_name = "My_Lambda_function"
-#   role          = aws_iam_role.lambda_role.arn
-#   handler       = "index.lambda_handler"
-#   runtime       = "python3.8"
-#   depends_on    = [aws_iam_role_policy_attachment.policy_attach]
-# }
+resource "aws_lambda_function" "add_address_to_db" {
+  filename      = "${path.module}/bundles/infrastructure.zip"
+  function_name = "nft-tracking-add-address-to-db-lambda-${var.deployment_environment}"
+  role          = aws_iam_role.lambda_role.arn
+  handler       = "main.addAddressToDbHandler"
+  runtime       = "nodejs14.x"
+  depends_on    = [aws_iam_role_policy_attachment.policy_attachment]
+}

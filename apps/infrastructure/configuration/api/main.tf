@@ -56,33 +56,37 @@ resource "aws_sfn_state_machine" "nft_tracking_state_machine" {
   name     = "nft-tracking-state-machine-${var.deployment_environment}"
   role_arn = aws_iam_role.step_function_iam_role.arn
 
-  #   definition = <<EOF
-  # {
-  #         "StartAt": "SendPushNotification",
-  #         "States": {
-  #             "SendPushNotification": {
-  #                 "Type": "Task",
-  #                 "Resource": "${PushNotificationLambdaArn}",
-  #                 "Next": "WriteEventToDB"
-  #             },
-  #             "WriteEventToDB": {
-  #                 "Type": "Task",
-  #                 "Resource": "${WriteEventToDBLambdaArn}",
-  #                 "End": true
-  #             }
-  #         }
-  # }
-  # EOF
   definition = <<EOF
-{
-  "Comment": "A Hello World example of the Amazon States Language using an AWS Lambda Function",
-  "StartAt": "HelloWorld",
-  "States": {
-    "HelloWorld": {
-      "Type": "Pass",
-      "End": true
+  {
+    "StartAt": "AddNewAddress",
+    "States": {
+        "AddNewAddress": {
+            "Type": "Parallel",
+            "End": true,
+            "Branches": [
+                {
+                    "StartAt": "SendUserDataRequest",
+                    "States": {
+                        "SendUserDataRequest": {
+                            "Type": "Task",
+                            "Resource": "${aws_lambda_function.update_user_data_lambda.arn}",
+                            "End": true
+                        }
+                    }
+                },
+                {
+                    "StartAt": "AddAddressToDB",
+                    "States": {
+                        "AddAddressToDB": {
+                            "Type": "Task",
+                            "Resource": "${aws_lambda_function.add_address_to_db.arn}",
+                            "End": true
+                        }
+                    }
+                }
+            ]
+        }
     }
-  }
 }
-EOF
+  EOF
 }
