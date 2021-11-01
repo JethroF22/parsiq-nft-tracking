@@ -14,10 +14,9 @@ export default styled.div`
     margin-bottom: 3rem;
   }
 
-  .input-container {
+  .input-group {
     margin-top: 15px;
-    margin-bottom: 3rem;
-    width: 100%;
+    width: 70%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
