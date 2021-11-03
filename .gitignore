@@ -78,3 +78,5 @@ terraform.rc
 # Ignore lambda bundles
 **/bundles/*.zip
 
+**/*.env
+
