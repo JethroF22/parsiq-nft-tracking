@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Button from '@mui/material/Button';
@@ -10,8 +10,14 @@ import {
 
 import ModalContainer from '../common/ModalContainer';
 import LoadingIcon from '../common/LoadingIcon';
+import { addAddressToUserData } from '../../services/addresses';
+import { Context } from '../../context';
 
-function NewAddressForm() {
+interface NewAddressFormProps {
+  closeModal(): void;
+}
+
+function NewAddressForm({ closeModal }: NewAddressFormProps) {
   const formOptions = { resolver: yupResolver(newAddressFormValidationSchema) };
   const {
     register,
@@ -19,9 +25,24 @@ function NewAddressForm() {
     handleSubmit,
   } = useForm(formOptions);
   const [actionInProgress, setActionState] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const onSubmit = (formState: NewAddressFormState) => {
-    console.log('formState', formState);
+  const { state } = useContext(Context);
+
+  const onSubmit = async (formState: NewAddressFormState) => {
+    try {
+      setErrorMessage('');
+      setActionState(true);
+      const { username: userId } = state.auth.user;
+      const result = await addAddressToUserData(formState, userId);
+      console.log('result', result);
+      closeModal();
+    } catch (error) {
+      console.log('error', error);
+      setErrorMessage(error.message);
+    } finally {
+      setActionState(false);
+    }
   };
 
   return (
@@ -56,8 +77,13 @@ function NewAddressForm() {
             variant="outlined"
             sx={{ fontSize: '1.5rem' }}
           >
-            Log In
+            Track Address
           </Button>
+        )}
+        {errorMessage && (
+          <div className="error-message">
+            <p>{errorMessage}</p>
+          </div>
         )}
       </div>
     </ModalContainer>

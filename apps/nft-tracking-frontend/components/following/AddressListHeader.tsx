@@ -15,7 +15,7 @@ function AddressListHeader() {
         <Modal>
           <div className="modal-container">
             <div className="modal-body">
-              <NewAddressForm />
+              <NewAddressForm closeModal={() => setModalDisplayState(false)} />
               <span
                 className="modal-close"
                 onClick={() => setModalDisplayState(false)}
