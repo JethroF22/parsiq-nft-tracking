@@ -5,7 +5,7 @@ export const addAddressToUserData = async (
   userId: string
 ) => {
   console.log('updating user data', formState);
-  const result = await fetch('/api/addresses', {
+  const result = await fetch('/api/new_address', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({

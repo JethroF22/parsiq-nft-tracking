@@ -42,7 +42,6 @@ const makeUserDataRequest = async (requestBody: any) => {
       body: JSON.stringify([{ address: requestBody.address }]),
     }
   );
-  console.log('response status', userDataUpdateResponse.status);
   if (userDataUpdateResponse.status !== 204) {
     const [isInTable, errorMessage] = await handleUserDataRequestError(
       userDataUpdateResponse,
