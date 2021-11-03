@@ -13,10 +13,10 @@ import { AppContextState, appContextReducer } from '../context';
 Amplify.configure(amplifyConfig);
 
 function CustomApp({ Component, pageProps }: AppProps) {
-  const [state, dispatch] = useReducer(
-    appContextReducer,
-    {} as AppContextState
-  );
+  const [state, dispatch] = useReducer(appContextReducer, {
+    auth: null,
+    addresses: [],
+  } as AppContextState);
 
   return (
     <Page>

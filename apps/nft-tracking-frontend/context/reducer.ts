@@ -1,4 +1,3 @@
-import { useReducer } from 'react';
 import { AppContextState, ContextUpdateAction, ActionTypes } from './types';
 
 export const appContextReducer = (

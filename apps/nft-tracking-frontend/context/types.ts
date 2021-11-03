@@ -5,8 +5,15 @@ export interface AppContext {
   state: AppContextState;
 }
 
+export interface AddressInfo {
+  address: string;
+  userId: string;
+  name: string;
+}
+
 export interface AppContextState {
   auth: AuthContextState;
+  addresses: AddressInfo[];
 }
 
 export interface AuthContextState {
