@@ -8,6 +8,7 @@ import { RequestState } from '../../types/http';
 import AddressListHeader from './AddressListHeader';
 import HomeScreen from '../common/HomeScreen';
 import LoadingIcon from '../common/LoadingIcon';
+import useGetUserAddresses from '../../hooks/useGetUserAddresses';
 
 const useStyles = makeStyles({
   root: {
@@ -42,7 +43,8 @@ const useStyles = makeStyles({
 
 export default function AddressListScreen() {
   const classes = useStyles();
-  const [addresses, requestState] = useFetchUserAddresses();
+  const requestState = useFetchUserAddresses();
+  const addresses = useGetUserAddresses();
   const rows: GridRowsProp = addresses;
   const columns: GridColDef[] = [
     {

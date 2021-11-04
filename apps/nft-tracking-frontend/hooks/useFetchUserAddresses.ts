@@ -1,17 +1,17 @@
 import { useContext, useState, useEffect } from 'react';
 
-import { Context } from '../context';
+import { ActionTypes, Context } from '../context';
 import { fetchUserAddresses } from '../lib/addresses';
 import { RequestState } from '../types/http';
 
-export default function useFetchUserAddresses(): [any[], RequestState] {
+export default function useFetchUserAddresses(): RequestState {
   const {
     state: {
       auth: { user },
     },
+    dispatch,
   } = useContext(Context);
   const { username: userId } = user;
-  const [addresses, setAddresses] = useState([]);
   const [requestState, setRequestState] = useState<RequestState>(
     RequestState.IDLE
   );
@@ -21,13 +21,14 @@ export default function useFetchUserAddresses(): [any[], RequestState] {
       try {
         setRequestState(RequestState.LOADING);
         const { addresses } = await fetchUserAddresses(userId);
-        console.log('addresses', addresses);
-        setAddresses(
-          addresses.map((address) => ({
+        dispatch({
+          type: ActionTypes.UPDATE_STATE,
+          key: 'addresses',
+          data: addresses.map((address) => ({
             ...address,
             id: `${address.user_id}:${address.address}`,
-          }))
-        );
+          })),
+        });
         setRequestState(RequestState.RESOLVED);
       } catch (error) {
         console.log('error', error);
@@ -35,7 +36,7 @@ export default function useFetchUserAddresses(): [any[], RequestState] {
       }
     };
     fetchAddresses();
-  }, [userId]);
+  }, [userId, dispatch]);
 
-  return [addresses, requestState];
+  return requestState;
 }
