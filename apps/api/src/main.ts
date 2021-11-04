@@ -4,7 +4,7 @@ import cors from 'cors';
 
 import { Message } from '@parsiq-nft-tracking/api-interfaces';
 
-import { eventsRouter, addressesRouter } from './routers';
+import { eventsRouter } from './routers';
 
 dotenv.config();
 
@@ -19,7 +19,6 @@ app.get('/api', (req, res) => {
   res.send(greeting);
 });
 
-app.use('/addresses', addressesRouter);
 app.use('/events', eventsRouter);
 
 const { PORT = 8000 } = process.env;
