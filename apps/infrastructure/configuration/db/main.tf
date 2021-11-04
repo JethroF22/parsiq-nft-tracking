@@ -28,4 +28,10 @@ resource "aws_dynamodb_table" "api_dynamodb_table" {
     name = "user_id"
     type = "S"
   }
+
+  global_secondary_index {
+    name            = "SearchByAddress"
+    hash_key        = "address"
+    projection_type = "ALL"
+  }
 }
