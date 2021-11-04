@@ -11,7 +11,7 @@ import {
 import ModalContainer from '../common/ModalContainer';
 import LoadingIcon from '../common/LoadingIcon';
 import { addAddressToUserData } from '../../services/addresses';
-import { Context } from '../../context';
+import { ActionTypes, Context } from '../../context';
 
 interface NewAddressFormProps {
   closeModal(): void;
@@ -27,15 +27,26 @@ function NewAddressForm({ closeModal }: NewAddressFormProps) {
   const [actionInProgress, setActionState] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
-  const { state } = useContext(Context);
+  const { state, dispatch } = useContext(Context);
 
   const onSubmit = async (formState: NewAddressFormState) => {
     try {
       setErrorMessage('');
       setActionState(true);
       const { username: userId } = state.auth.user;
-      const result = await addAddressToUserData(formState, userId);
-      console.log('result', result);
+      await addAddressToUserData(formState, userId);
+      dispatch({
+        type: ActionTypes.UPDATE_STATE,
+        key: 'addresses',
+        data: [
+          ...state.addresses,
+          {
+            ...formState,
+            userId,
+            id: `${userId}:${formState.address}`,
+          },
+        ],
+      });
       closeModal();
     } catch (error) {
       console.log('error', error);
