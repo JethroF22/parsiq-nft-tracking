@@ -1,6 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-import { writeToDb } from '@parsiq-nft-tracking/aws';
+import {
+  AddressRecord,
+  RecordTypes,
+  writeToDb,
+} from '@parsiq-nft-tracking/aws';
 
 export default async function handler(
   request: NextApiRequest,
@@ -12,10 +16,11 @@ export default async function handler(
       if (errorMessage) {
         response.status(400).send({ message: errorMessage });
       }
-      const result = await writeToDb({
-        user_id: request.body.userId,
+      const result = await writeToDb<AddressRecord>({
+        userId: request.body.userId,
         name: request.body.name,
         address: request.body.address,
+        recordType: RecordTypes.ADDRESS,
       });
       console.log('result', result);
     } catch (error) {

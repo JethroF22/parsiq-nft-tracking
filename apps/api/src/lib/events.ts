@@ -1,10 +1,12 @@
 import {
   AddressRecord,
+  EventRecord,
   getRecords,
+  RecordTypes,
   transactionWriteToDb,
 } from '@parsiq-nft-tracking/aws';
 
-import { EventBody, EventTypes } from '../types/events';
+import { EventBody, EventTypes } from '@parsiq-nft-tracking/api-interfaces';
 
 const BLACK_HOLE_ADDRESS = '0x0000000000000000000000000000000000000000';
 
@@ -20,44 +22,34 @@ export const handleNewEvent = async (event: any) => {
     fromAddress === BLACK_HOLE_ADDRESS
       ? EventTypes.NEWLY_MINTED_TOKEN
       : EventTypes.TOKEN_TRANSFER;
-  await writeEventToDb(eventType, {
+  await writeEventToDb({
     fromAddress,
     toAddress,
     transactionHash,
     codeAddress,
     tokenId,
+    eventType,
   });
 };
 
-const writeEventToDb = async (eventType: EventTypes, eventBody: EventBody) => {
-  let records;
-  if (eventType === EventTypes.NEWLY_MINTED_TOKEN) {
-    records = [
-      {
-        address: BLACK_HOLE_ADDRESS,
-        user_id: '',
-        toAddress: eventBody.toAddress,
-        transactionHash: eventBody.transactionHash,
-        codeAddress: eventBody.codeAddress,
-        tokenId: eventBody.tokenId,
-      },
-    ];
-  } else {
-    const userIds = await getUserIds(
-      eventBody.fromAddress,
-      eventBody.toAddress
-    );
-    records = userIds.map((userId) => ({
-      address: eventBody.fromAddress,
-      user_id: userId,
-      toAddress: eventBody.toAddress,
-      transactionHash: eventBody.transactionHash,
-      codeAddress: eventBody.codeAddress,
-      tokenId: eventBody.tokenId,
-    }));
-  }
+const writeEventToDb = async (eventBody: EventBody) => {
+  const record: EventRecord = {
+    address: eventBody.fromAddress,
+    toAddress: eventBody.toAddress,
+    transactionHash: eventBody.transactionHash,
+    userId: '',
+    codeAddress: eventBody.codeAddress,
+    tokenId: eventBody.tokenId,
+    eventType: eventBody.eventType,
+    recordType: RecordTypes.EVENT,
+  };
+  const userIds = await getUserIds(eventBody.fromAddress, eventBody.toAddress);
+  const records: EventRecord[] = userIds.map((userId) => ({
+    ...record,
+    userId: userId,
+  }));
 
-  await transactionWriteToDb(records);
+  await transactionWriteToDb<EventRecord>(records);
 };
 
 const getUserIds = async (fromAddress: string, toAddress: string) => {
@@ -87,4 +79,4 @@ const getUserIds = async (fromAddress: string, toAddress: string) => {
   return [...results[0].map(getUserId), ...results[1].map(getUserId)];
 };
 
-const getUserId = (record) => record.user_id;
+const getUserId = (record) => record.userId;

@@ -26,7 +26,7 @@ export default function useFetchUserAddresses(): RequestState {
           key: 'addresses',
           data: addresses.map((address) => ({
             ...address,
-            id: `${address.user_id}:${address.address}`,
+            id: `${address.userId}:${address.address}`,
           })),
         });
         setRequestState(RequestState.RESOLVED);
