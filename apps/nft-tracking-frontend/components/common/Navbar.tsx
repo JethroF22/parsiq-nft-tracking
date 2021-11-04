@@ -18,10 +18,18 @@ function Navbar() {
       <AppBar position="static" color="transparent">
         <Toolbar>
           <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'row' }}>
-            <Button sx={{ fontSize: '1.5rem', mr: '1rem' }} color="inherit">
+            <Button
+              sx={{ fontSize: '1.5rem', mr: '1rem' }}
+              color="inherit"
+              onClick={() => router.push('/event_feed')}
+            >
               <Typography variant="h4">Feed</Typography>
             </Button>
-            <Button sx={{ fontSize: '1.5rem', mr: '1rem' }} color="inherit">
+            <Button
+              sx={{ fontSize: '1.5rem', mr: '1rem' }}
+              color="inherit"
+              onClick={() => router.push('/following/list')}
+            >
               <Typography variant="h4">Following</Typography>
             </Button>
           </Box>
