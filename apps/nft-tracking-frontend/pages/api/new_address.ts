@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-import { writeToDb } from '../../lib/aws';
+import { writeToDb } from '@parsiq-nft-tracking/aws';
 
 export default async function handler(
   request: NextApiRequest,

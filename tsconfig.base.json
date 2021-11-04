@@ -18,6 +18,7 @@
       "@parsiq-nft-tracking/api-interfaces": [
         "libs/api-interfaces/src/index.ts"
       ],
+      "@parsiq-nft-tracking/aws": ["libs/aws/src/index.ts"],
       "@parsiq-nft-tracking/validation-library": [
         "libs/validation-library/src/index.ts"
       ]

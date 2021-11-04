@@ -1,11 +1,12 @@
 {
-    "version": 2,
-    "projects": {
-        "api": "apps/api",
-        "api-interfaces": "libs/api-interfaces",
-        "infrastructure": "apps/infrastructure",
-        "nft-tracking-frontend": "apps/nft-tracking-frontend",
-        "nft-tracking-frontend-e2e": "apps/nft-tracking-frontend-e2e",
-        "validation-library": "libs/validation-library"
-    }
+  "version": 2,
+  "projects": {
+    "api": "apps/api",
+    "api-interfaces": "libs/api-interfaces",
+    "aws": "libs/aws",
+    "infrastructure": "apps/infrastructure",
+    "nft-tracking-frontend": "apps/nft-tracking-frontend",
+    "nft-tracking-frontend-e2e": "apps/nft-tracking-frontend-e2e",
+    "validation-library": "libs/validation-library"
+  }
 }

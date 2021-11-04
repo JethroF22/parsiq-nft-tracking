@@ -1,4 +1,4 @@
-import { AddressRecord, getRecords } from '../aws';
+import { AddressRecord, getRecords } from '@parsiq-nft-tracking/aws';
 
 export const getUserAddressesFromDb = async (userId: string) => {
   const KeyConditionExpression = 'user_id = :user_id';
