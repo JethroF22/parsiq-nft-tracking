@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import Button from '@mui/material/Button';
 
-import ListHeader from './styled/ListHeader';
+import ListHeader from '../common/ListHeader';
 import Modal from '../../hocs/Modal';
 import NewAddressForm from './NewAddressForm';
 

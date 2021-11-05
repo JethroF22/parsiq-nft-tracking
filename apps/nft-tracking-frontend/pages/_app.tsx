@@ -16,6 +16,7 @@ function CustomApp({ Component, pageProps }: AppProps) {
   const [state, dispatch] = useReducer(appContextReducer, {
     auth: null,
     addresses: [],
+    events: [],
   } as AppContextState);
 
   return (

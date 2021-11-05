@@ -1,5 +1,5 @@
-export const fetchUserAddresses = async (userId: string) => {
-  const response = await fetch('/api/get_addresses', {
+export const fetchUserEvents = async (userId: string) => {
+  const response = await fetch('/api/get_events', {
     headers: {
       'Content-Type': 'application/json',
     },

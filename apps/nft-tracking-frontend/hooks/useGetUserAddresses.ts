@@ -1,8 +1,10 @@
 import { useContext } from 'react';
 
-import { AddressInfo, Context } from '../context';
+import { AddressRecord } from '@parsiq-nft-tracking/aws';
 
-export default function useGetUserAddresses(): AddressInfo[] {
+import { Context } from '../context';
+
+export default function useGetUserAddresses(): AddressRecord[] {
   const {
     state: { addresses },
   } = useContext(Context);

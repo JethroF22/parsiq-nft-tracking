@@ -1,3 +1,4 @@
+import { AddressRecord, EventRecord } from '@parsiq-nft-tracking/aws';
 import { Dispatch } from 'react';
 
 export interface AppContext {
@@ -5,15 +6,10 @@ export interface AppContext {
   state: AppContextState;
 }
 
-export interface AddressInfo {
-  address: string;
-  userId: string;
-  name: string;
-}
-
 export interface AppContextState {
   auth: AuthContextState;
-  addresses: AddressInfo[];
+  addresses: AddressRecord[];
+  events: EventRecord[];
 }
 
 export interface AuthContextState {
