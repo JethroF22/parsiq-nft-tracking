@@ -1,17 +1,15 @@
 import { useContext, useEffect } from 'react';
 import Pusher from 'pusher-js';
+import { useEthers } from '@usedapp/core';
 
 import { ActionTypes, Context } from '../context';
 
 export default function useSubscribeToEvents() {
+  const { account } = useEthers();
   const {
-    state: {
-      auth: { user },
-      events,
-    },
+    state: { events },
     dispatch,
   } = useContext(Context);
-  const { username: userId } = user;
 
   useEffect(() => {
     Pusher.logToConsole = true;
@@ -21,7 +19,7 @@ export default function useSubscribeToEvents() {
     });
 
     const channel = pusher.subscribe('events');
-    channel.bind(`nft-event-${userId}`, function (data) {
+    channel.bind(`nft-event-${account}`, function (data) {
       console.log('updating data', data);
       dispatch({
         type: ActionTypes.UPDATE_STATE,
@@ -38,5 +36,5 @@ export default function useSubscribeToEvents() {
     return () => {
       pusher.unsubscribe('events');
     };
-  }, [userId, dispatch, events]);
+  }, [account, dispatch, events]);
 }

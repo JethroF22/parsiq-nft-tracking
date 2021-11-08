@@ -9,7 +9,6 @@ import { RequestState } from '../../types/http';
 import NoRowsOverlay from './NoRowsOverlay';
 import AddressListHeader from './AddressListHeader';
 import HomeScreen from '../common/HomeScreen';
-import LoadingIcon from '../common/LoadingIcon';
 import dataGridStyles from '../styles/dataGrid';
 
 const useStyles = makeStyles(dataGridStyles);

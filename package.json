@@ -20,6 +20,7 @@
     "@mui/styles": "^5.0.2",
     "@mui/x-data-grid": "^5.0.0-beta.6",
     "@nrwl/next": "^13.1.2",
+    "@usedapp/core": "^0.5.4",
     "aws-amplify": "^4.3.4",
     "aws-lambda": "^1.0.6",
     "aws-sdk": "^2.1019.0",

@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Button from '@mui/material/Button';
+import { useEthers } from '@usedapp/core';
 
 import {
   newAddressFormValidationSchema,
@@ -18,6 +19,7 @@ interface NewAddressFormProps {
 }
 
 function NewAddressForm({ closeModal }: NewAddressFormProps) {
+  const { account } = useEthers();
   const formOptions = { resolver: yupResolver(newAddressFormValidationSchema) };
   const {
     register,
@@ -33,8 +35,7 @@ function NewAddressForm({ closeModal }: NewAddressFormProps) {
     try {
       setErrorMessage('');
       setActionState(true);
-      const { username: userId } = state.auth.user;
-      await addAddressToUserData(formState, userId);
+      await addAddressToUserData(formState, account);
       dispatch({
         type: ActionTypes.UPDATE_STATE,
         key: 'addresses',
@@ -42,8 +43,8 @@ function NewAddressForm({ closeModal }: NewAddressFormProps) {
           ...state.addresses,
           {
             ...formState,
-            userId,
-            id: `${userId}:${formState.address}`,
+            account,
+            id: `${account}:${formState.address}`,
           },
         ],
       });

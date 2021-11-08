@@ -7,21 +7,17 @@ export interface AppContext {
 }
 
 export interface AppContextState {
-  auth: AuthContextState;
   addresses: AddressRecord[];
   events: EventRecord[];
 }
 
-export interface AuthContextState {
-  user: any;
-}
-
 export enum ActionTypes {
   UPDATE_STATE = 'UPDATE_STATE',
+  CLEAR_STATE = 'CLEAR_STATE',
 }
 
 export interface ContextUpdateAction {
   type: ActionTypes;
-  key: string;
-  data: any;
+  key?: string;
+  data?: any;
 }

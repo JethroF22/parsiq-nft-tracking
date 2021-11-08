@@ -5,6 +5,7 @@ import {
 } from '@parsiq-nft-tracking/aws';
 
 export const getUserAddressesFromDb = async (userId: string) => {
+  console.log('userId', userId);
   const KeyConditionExpression =
     'userId = :userId AND recordType = :recordType';
   const ExpressionAttributeValues = {

@@ -10,6 +10,11 @@ export const appContextReducer = (
         ...state,
         [action.key]: action.data,
       };
+    case ActionTypes.CLEAR_STATE:
+      return {
+        addresses: [],
+        events: [],
+      };
     default:
       return state;
   }

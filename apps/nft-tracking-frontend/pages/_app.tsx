@@ -1,16 +1,13 @@
 import { AppProps } from 'next/app';
 import { useReducer } from 'react';
-import Amplify from 'aws-amplify';
+import { DAppProvider } from '@usedapp/core';
 
 import Page from '../components/Page';
 
 import { Context } from '../context';
-import amplifyConfig from '../amplify-config';
 
 import './styles.css';
 import { AppContextState, appContextReducer } from '../context';
-
-Amplify.configure(amplifyConfig);
 
 function CustomApp({ Component, pageProps }: AppProps) {
   const [state, dispatch] = useReducer(appContextReducer, {
@@ -21,9 +18,11 @@ function CustomApp({ Component, pageProps }: AppProps) {
 
   return (
     <Page>
-      <Context.Provider value={{ state, dispatch }}>
-        <Component {...pageProps} />
-      </Context.Provider>
+      <DAppProvider config={{}}>
+        <Context.Provider value={{ state, dispatch }}>
+          <Component {...pageProps} />
+        </Context.Provider>
+      </DAppProvider>
     </Page>
   );
 }

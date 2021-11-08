@@ -1,18 +1,28 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useRouter } from 'next/router';
+import { useEthers } from '@usedapp/core';
+
 import Box from '@mui/material/Box';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import { Auth } from 'aws-amplify';
+
+import { ActionTypes, Context } from '../../context';
 
 function Navbar() {
+  const { deactivate } = useEthers();
   const router = useRouter();
+  const { dispatch } = useContext(Context);
+
   const signOut = async () => {
-    await Auth.signOut();
+    deactivate();
+    dispatch({
+      type: ActionTypes.CLEAR_STATE,
+    });
     router.push('/');
   };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" color="primary">

@@ -1,7 +1,7 @@
-import LoginScreen from '../components/authentication/LoginScreen';
+import HomeScreen from '../components/HomeScreen';
 
 export function Index() {
-  return <LoginScreen />;
+  return <HomeScreen />;
 }
 
 export default Index;
