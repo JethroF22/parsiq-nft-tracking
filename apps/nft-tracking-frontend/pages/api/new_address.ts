@@ -20,6 +20,7 @@ export default async function handler(
         userId: request.body.userId,
         name: request.body.name,
         address: request.body.address,
+        recordId: `${RecordTypes.ADDRESS}:${request.body.address}`,
         recordType: RecordTypes.ADDRESS,
       });
       console.log('result', result);
