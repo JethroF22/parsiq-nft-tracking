@@ -25,5 +25,16 @@ export default styled.div`
       padding: 10px;
       font-family: inherit;
     }
+
+    .error-message {
+      color: red;
+      height: 1.2rem;
+      margin-top: 0.5rem;
+    }
+
+    .input-error {
+      border-color: red;
+      border-width: 2px;
+    }
   }
 `;

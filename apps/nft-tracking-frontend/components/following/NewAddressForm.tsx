@@ -67,6 +67,9 @@ function NewAddressForm({ closeModal }: NewAddressFormProps) {
           {...register('address')}
           className={errors.address ? 'input-error' : ''}
         />
+        {errors.address && (
+          <div className="error-message">{errors.address.message}</div>
+        )}
       </div>
       <div className="input-group">
         <input
@@ -83,9 +86,9 @@ function NewAddressForm({ closeModal }: NewAddressFormProps) {
         ) : (
           <Button
             onClick={handleSubmit(onSubmit)}
-            color="inherit"
+            color="primary"
             size="large"
-            variant="outlined"
+            variant="contained"
             sx={{ fontSize: '1.5rem' }}
           >
             Track Address
