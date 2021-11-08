@@ -15,7 +15,7 @@ provider "aws" {
 
 resource "aws_dynamodb_table" "api_dynamodb_table" {
   name         = "nft-tracking-table-${var.deployment_environment}"
-  range_key    = "recordType"
+  range_key    = "recordId"
   hash_key     = "userId"
   billing_mode = "PAY_PER_REQUEST"
 
@@ -30,8 +30,19 @@ resource "aws_dynamodb_table" "api_dynamodb_table" {
   }
 
   attribute {
+    name = "recordId"
+    type = "S"
+  }
+
+  attribute {
     name = "recordType"
     type = "S"
+  }
+
+  local_secondary_index {
+    name            = "SearchByRecordType"
+    range_key       = "recordType"
+    projection_type = "ALL"
   }
 
   global_secondary_index {

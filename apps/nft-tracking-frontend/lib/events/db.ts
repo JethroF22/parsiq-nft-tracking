@@ -7,9 +7,12 @@ export const getUserEventsFromDb = async (userId: string) => {
     ':userId': userId,
     ':recordType': RecordTypes.EVENT,
   };
+  const IndexName = 'SearchByRecordType';
 
   return getRecords<EventRecord>(
     KeyConditionExpression,
-    ExpressionAttributeValues
+    ExpressionAttributeValues,
+    null,
+    IndexName
   );
 };

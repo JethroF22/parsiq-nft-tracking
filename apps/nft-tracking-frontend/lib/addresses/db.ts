@@ -11,9 +11,12 @@ export const getUserAddressesFromDb = async (userId: string) => {
     ':userId': userId,
     ':recordType': RecordTypes.ADDRESS,
   };
+  const IndexName = 'SearchByRecordType';
 
   return getRecords<AddressRecord>(
     KeyConditionExpression,
-    ExpressionAttributeValues
+    ExpressionAttributeValues,
+    null,
+    IndexName
   );
 };
