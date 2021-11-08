@@ -29,9 +29,9 @@ function AddressListHeader() {
       <ListHeader>
         <div className="title">Followed Addresses</div>
         <Button
-          color="inherit"
+          color="primary"
           size="large"
-          variant="outlined"
+          variant="contained"
           sx={{ fontSize: '1.5rem' }}
           onClick={() => setModalDisplayState(true)}
         >

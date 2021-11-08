@@ -15,27 +15,30 @@ function Navbar() {
   };
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" color="transparent">
+      <AppBar position="static" color="primary">
         <Toolbar>
           <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'row' }}>
             <Button
-              sx={{ fontSize: '1.5rem', mr: '1rem' }}
+              sx={{ fontSize: '1.3rem', mr: '1rem' }}
               color="inherit"
+              variant="text"
               onClick={() => router.push('/event_feed')}
             >
-              <Typography variant="h4">Feed</Typography>
+              <Typography variant="h5">Feed</Typography>
             </Button>
             <Button
-              sx={{ fontSize: '1.5rem', mr: '1rem' }}
+              sx={{ fontSize: '1.3rem', mr: '1rem' }}
               color="inherit"
+              variant="text"
               onClick={() => router.push('/following/list')}
             >
-              <Typography variant="h4">Following</Typography>
+              <Typography variant="h5">Following</Typography>
             </Button>
           </Box>
           <Button
             color="inherit"
             size="large"
+            variant="text"
             sx={{ fontSize: '1.5rem' }}
             onClick={signOut}
           >
