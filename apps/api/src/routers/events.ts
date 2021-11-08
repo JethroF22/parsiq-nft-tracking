@@ -11,7 +11,7 @@ eventsRouter.post('/', async (req: Request, res: Response) => {
   try {
     await handleNewEvent(req.body);
   } catch (error) {
-    console.log('error', error);
+    console.log('error', error.message);
   }
 });
 
