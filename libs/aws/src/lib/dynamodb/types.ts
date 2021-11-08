@@ -3,6 +3,7 @@ export interface AddressRecord {
   userId: string;
   address: string;
   name: string;
+  recordId: string;
   recordType: RecordTypes.ADDRESS;
 }
 
@@ -13,8 +14,10 @@ export interface EventRecord {
   codeAddress: string;
   tokenId: string;
   userId: string;
-  recordType: RecordTypes.EVENT;
+  recordId: string;
   eventType: EventTypes;
+  recordType: RecordTypes.EVENT;
+  blockTimestamp: string;
 }
 
 export enum RecordTypes {

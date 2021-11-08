@@ -1,29 +1,43 @@
-import React from 'react';
-import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid';
+import React, { useState } from 'react';
+import {
+  DataGrid,
+  GridRowsProp,
+  GridColDef,
+  GridSortModel,
+} from '@mui/x-data-grid';
 import { makeStyles } from '@mui/styles';
+import dayjs from 'dayjs';
 
 import useFetchUserEvents from '../../hooks/useFetchUserEvents';
+import useGetUserEvents from '../../hooks/useGetUserEvents';
+import useSubscribeToEvents from '../../hooks/useSubscribeToEvents';
+
 import { RequestState } from '../../types/http';
 
-import LoadingIcon from '../common/LoadingIcon';
-import useGetUserEvents from '../../hooks/useGetUserEvents';
+import NoRowsOverlay from './NoRowsOverlay';
 import dataGridStyles from '../styles/dataGrid';
 import ListHeader from '../common/ListHeader';
-import { EventTypes } from '@parsiq-nft-tracking/api-interfaces';
 
 const useStyles = makeStyles(dataGridStyles);
 
 function EventFeed() {
+  const [sortModel, setSortModel] = useState<GridSortModel>([
+    {
+      field: 'blockTimestamp',
+      sort: 'desc',
+    },
+  ]);
   const classes = useStyles();
+  useSubscribeToEvents();
   const requestState = useFetchUserEvents();
-  const addresses = useGetUserEvents();
-  const rows: GridRowsProp = addresses;
+  const events = useGetUserEvents();
+  const rows: GridRowsProp = events;
   const columns: GridColDef[] = [
     {
-      field: 'col1',
+      field: 'address',
       headerName: 'From Address',
       align: 'center',
-      width: 300,
+      width: 375,
       headerAlign: 'center',
       headerClassName: 'grid-header',
       valueGetter: (item) => {
@@ -31,10 +45,10 @@ function EventFeed() {
       },
     },
     {
-      field: 'col2',
+      field: 'toAddress',
       headerName: 'To Address',
       align: 'center',
-      width: 300,
+      width: 375,
       headerAlign: 'center',
       headerClassName: 'grid-header',
       valueGetter: (item) => {
@@ -42,10 +56,10 @@ function EventFeed() {
       },
     },
     {
-      field: 'col3',
+      field: 'codeAddress',
       headerName: 'Code Address',
       align: 'center',
-      width: 300,
+      width: 375,
       headerAlign: 'center',
       headerClassName: 'grid-header',
       valueGetter: (item) => {
@@ -53,61 +67,40 @@ function EventFeed() {
       },
     },
     {
-      field: 'col4',
-      headerName: 'Transaction Hash',
+      field: 'blockTimestamp',
+      headerName: 'Block Timestamp',
       align: 'center',
-      width: 300,
+      width: 375,
       headerAlign: 'center',
       headerClassName: 'grid-header',
       valueGetter: (item) => {
-        return item.row.transactionHash;
-      },
-    },
-    {
-      field: 'col5',
-      headerName: 'Event Type',
-      align: 'center',
-      width: 300,
-      headerAlign: 'center',
-      headerClassName: 'grid-header',
-      valueGetter: (item) => {
-        return item.row.eventType === EventTypes.NEWLY_MINTED_TOKEN
-          ? 'Minted Token'
-          : 'Token Transfer';
+        return dayjs(item.row.blockTimestamp * 1000).format(
+          'ddd, MMM D, YYYY h:mm A'
+        );
       },
     },
   ];
   return (
     <>
-      {requestState === RequestState.RESOLVED && (
-        <>
-          <ListHeader>
-            <div className="title">Events</div>
-          </ListHeader>
-          <div style={{ height: '80vh', width: 1500, margin: '3rem auto' }}>
-            <DataGrid
-              rows={rows}
-              columns={columns}
-              className={classes.root}
-              showColumnRightBorder={false}
-            />
-          </div>
-        </>
-      )}
-      {requestState === RequestState.LOADING && (
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: '80vh',
-            width: 800,
-            margin: '3rem auto',
-          }}
-        >
-          <LoadingIcon size="5x" />
+      <>
+        <ListHeader>
+          <div className="title">Events</div>
+        </ListHeader>
+        <div style={{ height: '80vh', width: 1500, margin: '3rem auto' }}>
+          <DataGrid
+            rows={rows}
+            columns={columns}
+            className={classes.root}
+            loading={requestState === RequestState.LOADING}
+            showColumnRightBorder={false}
+            components={{
+              NoRowsOverlay: NoRowsOverlay,
+            }}
+            sortModel={sortModel}
+            onSortModelChange={(model) => setSortModel(model)}
+          />
         </div>
-      )}
+      </>
     </>
   );
 }

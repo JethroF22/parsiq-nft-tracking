@@ -14,4 +14,5 @@ export interface EventBody {
   codeAddress: string;
   tokenId: string;
   eventType: EventTypes;
+  blockTimestamp: string;
 }
