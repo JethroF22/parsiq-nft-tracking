@@ -10,6 +10,7 @@ const greeting: Message = { message: 'This is the events endpoint' };
 eventsRouter.post('/', async (req: Request, res: Response) => {
   try {
     await handleNewEvent(req.body);
+    res.send({ message: 'Handled event' });
   } catch (error) {
     console.log('error', error.message);
   }
